@@ -2,6 +2,11 @@ scalaVersion := "3.1.3"
 organization := "dev.zio"
 name         := "zio-quickstart-restful-webservice"
 
+assemblyMergeStrategy in assembly := {
+  case PathList("META-INF", xs @ _*) => MergeStrategy.discard
+  case x => MergeStrategy.first
+}
+
 libraryDependencies ++= Seq(
   "dev.zio"       %% "zio"            % "2.0.1",
   "dev.zio"       %% "zio-json"       % "0.3.0-RC11",

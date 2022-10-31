@@ -22,9 +22,9 @@ object CheckApp:
           successSrc <- ZIO.succeed(!blackList.contains(transaction.src)) //boolean value для проверки src
           successDst <- ZIO.succeed(!blackList.contains(transaction.dst)) //boolean value для проверки dst
           result <- ZIO.from( // "разветвил" проверку для локализации ошибки в реквесте
-            if (!successSrc) { //if successSrc=false(т.е blacklist содержит значение в src) - реквест маркируется как BadRequest
+            if (!successSrc) { //if successSrc=false(т.е blacklist содержит значение в src) - ответу присваивается статус BadRequest
               Response.text("Cancel (src is blacklisted)").setStatus(Status.BadRequest)
-            } else if (!successDst) { //if successDst=false(т.е blacklist содержит значение в dst) - реквест маркируется как BadRequest
+            } else if (!successDst) { //if successDst=false(т.е blacklist содержит значение в dst) - ответу присваивается статус BadRequest
               Response.text("Cancel (dst is blacklisted)").setStatus(Status.BadRequest)
             } else { // в противном случае понимаем, что ни src ни dst не находятся в blacklist
               Response.text("Success").setStatus(Status.Ok)
